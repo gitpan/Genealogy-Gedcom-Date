@@ -4,7 +4,7 @@
       "Ron Savage <ron@savage.net.au>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.113640",
+   "generated_by" : "Module::Build version 0.4, CPAN::Meta::Converter version 2.120630",
    "license" : [
       "artistic_1"
    ],
@@ -27,8 +27,8 @@
       },
       "runtime" : {
          "requires" : {
-            "DateTime" : "0.7",
-            "DateTime::Infinite" : "0.7",
+            "DateTime" : "0.72",
+            "DateTime::Infinite" : "0.72",
             "Hash::FieldHash" : "0.12",
             "Try::Tiny" : "0.11"
          }
@@ -37,7 +37,7 @@
    "provides" : {
       "Genealogy::Gedcom::Date" : {
          "file" : "lib/Genealogy/Gedcom/Date.pm",
-         "version" : "1.01"
+         "version" : "1.02"
       }
    },
    "release_status" : "stable",
@@ -46,5 +46,5 @@
          "http://opensource.org/licenses/artistic-license.php"
       ]
    },
-   "version" : "1.01"
+   "version" : "1.02"
 }

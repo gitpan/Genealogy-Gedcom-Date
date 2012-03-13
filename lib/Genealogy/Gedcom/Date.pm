@@ -15,7 +15,7 @@ fieldhash my %debug        => 'debug';
 fieldhash my %method_index => 'method_index';
 fieldhash my %style        => 'style';
 
-our $VERSION = '1.01';
+our $VERSION = '1.02';
 
 # --------------------------------------------------
 
@@ -51,6 +51,10 @@ sub _init_flags
 		$flags{phrase}                 = '';
 		$flags{prefix}                 = '';
 	}
+
+	# Fix systems where DateTime::Infinite::Past is returned as '-1.#INF' instead of '-inf'.
+
+	$flags{one} = '-inf' if ($flags{one} eq '-1.#INF$');
 
 	return {%flags};
 
@@ -400,7 +404,7 @@ sub _parse_1or2_dates
 		}
 
 		if ($field[$i] eq $$from_to[1])
-		{	
+		{
 			$offset{two} = $i;
 
 			if ($offset{one} < 0)
@@ -655,7 +659,7 @@ sub process_date_escape
 
 =head1 NAME
 
-L<Genealogy::Gedcom::Date> - Parse GEDCOM dates
+Genealogy::Gedcom::Date - Parse GEDCOM dates
 
 =head1 Synopsis
 
@@ -678,7 +682,7 @@ L<Genealogy::Gedcom::Date> - Parse GEDCOM dates
 	}
 
 See the L</FAQ>'s first QA for the definition of $hashref.
- 
+
 L<Genealogy::Gedcom::Date> ships with t/date.t, t/escape.t and t/value.t. You are strongly encouraged to peruse them,
 and perhaps to set the debug option in each to see extra progress reports.
 
@@ -1110,6 +1114,8 @@ A missing month defaults to 01. A missing day defaults to 01.
 
 Default: DateTime::Infinite::Past -> new, which stringifies to '-inf'.
 
+Note: On some systems, DateTime::Infinite::Past -> new stringifies to '-1.#INF', but, as of V 1.02, the code changes this to '-inf'.
+
 The default value does I<not> set the one_ambiguous and one_bc flags.
 
 =item o one_ambiguous => $Boolean
@@ -1155,6 +1161,8 @@ This means that if the value of the 'one' key does not match the stringified val
 Alternately, if the stringified value of the 'one_date' key is '-inf', the period supplied did not have a 'From' date.
 
 Default: DateTime::Infinite::Past -> new, which stringifies to '-inf'.
+
+Note: On some systems, DateTime::Infinite::Past -> new stringifies to '-1.#INF', but, as of V 1.02, the code changes this to '-inf'.
 
 =item o one_default_day => $Boolean
 
